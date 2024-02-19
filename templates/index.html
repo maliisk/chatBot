@@ -1,0 +1,2513 @@
+    <!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
+        <link rel="icon" href="https://www.firat.edu.tr/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/assets/front/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/assets/front/css/responsive.css">
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/CDN/fontawesome/all.min.css"/>
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/CDN/bootstrap/dist.min.css">
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/CDN/datatable/datatable.min.css"/>
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/assets/front/css/style.css">
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/jquery/ajax.min.js"></script>
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/fontawesome/1ab97ad3d2.js"></script>
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/popper/popper.min.js"></script>
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/bootstrap/npmBundle.min.js"></script>
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/jquery/jquery-3-5-1.js"></script>
+    <script src="https://bilgisayarmf.firat.edu.tr/CDN/jquery/ajax.min.js"></script>
+    <link rel="stylesheet" href="https://bilgisayarmf.firat.edu.tr/assets/front/js/swiper/swiper-bundle.min.css">
+
+    <script src="https://bilgisayarmf.firat.edu.tr/assets/front/js/swiper/swiper-bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <title>    Ana Sayfa | Fırat Üniversitesi</title>
+
+
+<!---->
+
+
+
+        <style>
+        /* Stil tanımları buraya gelecek */
+        /* ... */
+        .qa-container {
+            display: none; /* Başlangıçta gizli olacak */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 450px;
+            height: 550px;
+            background-color: #fff;
+            border-radius: 10px; /* Kenarların yuvarlatılması */
+            border: 2px solid #8C0841; /* Kenarların belirginleştirilmesi */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Hafif gölge efekti */
+            padding: 20px;
+            overflow-y: auto; /* Dikey kaydırma çubuğunu göster */
+            z-index: 9999; /* Diğer elemanların üzerinde kalacak şekilde z-index ayarla */
+            transition: transform 0.3s ease; /* Animasyon için geçiş efekti ekle */
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 60px);
+            overflow-y: auto; /* Dikey kaydırma çubuğunu göster */
+        }
+        .message {
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif; /* Belirgin ve güzel bir font seçimi */
+            font-size: 18px; /* Yazı boyutunu biraz büyütelim */
+            font-weight: bold; /* Kalın font kullanalım */
+        }
+
+        .bot-message {
+            font-weight: bold;
+            color: #8C0841; /* Bot mesajının ikon rengiyle aynı renk */
+        }
+
+
+
+        input[type="text"] {
+            width: calc(100% - 80px); /* Giriş kutusu genişliğini ayarla */
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 75px; /* Gönder düğmesinin genişliğini ayarla */
+            background-color: #8C0841;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            margin-left: auto; /* Gönder düğmesini sağa yasla */
+        }
+        button:hover {
+            background-color: #8C0841;
+        }
+
+        .chat-icon-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .chat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #8C0841;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s, width 0.3s, height 0.3s; /* Transition'ları genişlet */
+        }
+
+        .chat-icon:hover {
+            background-color: #7D0552; /* Hover olduğunda arka plan rengini değiştir */
+            transform: scale(1.1) rotate(360deg); /* Hem büyüme hem de dönme efekti ekle */
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #8C0841;
+            cursor: pointer;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0; /* Metnin başlangıçta genişliği sıfır */
+            }
+            to {
+                width: auto; /* Metnin son genişliği otomatik (tam metin uzunluğuna kadar) */
+            }
+        }
+
+
+<!---->
+
+
+        p {
+            margin: 0 !important;
+        }
+
+
+        /*----- Main Rules -----*/
+        @import  url("https://font.googleapis.com/css?family=Poppins:300,600,700,800,900");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /*----- Reset some items -----*/
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /*----- | Box Section | -----*/
+        .wrapper {
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 70px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 1170px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .container2 {
+            width: 1170px;
+            display: grid;
+            gap: 30px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media  only screen and (max-width: 640px) {
+            .container {
+                width: 100% !important;
+            }
+
+            .box {
+                height: 110px !important;
+            }
+        }
+
+        .box {
+            padding: 1rem;
+            background: var(--backColor);
+            width: 100%;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -ms-border-radius: 20px;
+            -o-border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box2::before {
+            content: "";
+            position: absolute;
+            width: 390px !important;
+            height: 600% !important;
+            background: linear-gradient(#79113E, #79113E);
+            animation: rotate 4s linear infinite;
+            -webkit-animation: rotate 6s linear infinite;
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 200%;
+            background: linear-gradient(#79113E, #79113E);
+            animation: rotate 4s linear infinite;
+            -webkit-animation: rotate 10s linear infinite;
+        }
+
+        .box::after {
+            content: "";
+            background-color: #ffffff;
+            position: absolute;
+            inset: 4px;
+            border-radius: 16px;
+            -webkit-border-radius: 16px;
+            -moz-border-radius: 16px;
+            -ms-border-radius: 16px;
+            -o-border-radius: 16px;
+        }
+
+        @keyframes  rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .box__head,
+        .box__content,
+        .box__social {
+            z-index: 1;
+        }
+
+        .box__head {
+            width: 130px;
+            max-width: 100%;
+        }
+
+
+        .box__content {
+            display: flex;
+            flex-direction: column;
+            row-gap: 20px;
+        }
+
+        .box__content > h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .box__content > p {
+            color: var(--text-color);
+            line-height: 1.5;
+            font-weight: 300;
+            font-size: 20px;
+        }
+
+        .box__social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 12px;
+        }
+
+        .wrapper .container2 h3 span {
+            font-size: 15px;
+            color: #b9b9b9;
+        }
+
+        .wrapper .container2 h3 {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .university-food-cards .wrapper h3 {
+            width: 100%;
+            text-align: start;
+            display: flex;
+        }
+
+        .index-content {
+            position: relative;
+        }
+
+        .index-content-right-shape {
+            top: -1rem;
+        }
+
+        .mySwiper {
+            max-height: 500px;
+        }
+
+        .announcement-cards {
+            max-height: 480px;
+        }
+
+        .announcement-cards-flex {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .announcement-card:hover {
+            border: 1px solid var(--red-color);
+        }
+
+
+    </style>
+    <style>
+
+        /* Please ❤ this if you like it! */
+
+
+        @import  url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+        body{
+            -webkit-overflow-x:hidden !important;
+        }
+
+        .sec-center {
+            position: relative;
+            max-width: 100%;
+            text-align: center;
+            z-index: 200;
+        }
+
+        .dropdown:checked,
+        .dropdown:not(:checked) {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .dropdown-sub:checked,
+        .dropdown-sub:not(:checked) {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .dark-light:checked + label {
+            transform: rotate(360deg);
+        }
+
+        .dark-light:checked + label:after {
+            opacity: 1;
+        }
+
+        .dark-light:checked + label:before {
+            background-color: #000;
+        }
+
+        .dark-light:checked ~ .light-back {
+            opacity: 1;
+        }
+
+        .dropdown:checked + label,
+        .dropdown:not(:checked) + label {
+            margin: 0;
+            position: relative;
+            padding: 0 10px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 2;
+            height: 38px;
+            transition: all 200ms linear;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            display: -webkit-inline-flex;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -ms-flex-pack: center;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+            color: var(--text-color);
+            border: 1px solid #e1e1e1;
+            justify-content: center;
+        }
+
+        .dark-light:checked ~ .sec-center .for-dropdown {
+            background-color: var(--red-color);
+            color: var(--text-color);
+            box-shadow: 0 12px 35px 0 rgba(16, 39, 112, .25);
+        }
+
+        .dropdown:checked + label:before,
+        .dropdown:not(:checked) + label:before {
+            position: fixed;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        .dropdown:checked + label:before {
+            pointer-events: auto;
+        }
+
+        .dropdown:not(:checked) + label .uil {
+            font-size: 14px;
+            margin-left: 10px;
+            transition: transform 200ms linear;
+        }
+
+        .dropdown:checked + label .uil {
+            transform: rotate(180deg);
+            font-size: 14px;
+            margin-left: 10px;
+            transition: transform 200ms linear;
+        }
+
+        .section-dropdown {
+            position: absolute;
+            padding: 5px;
+            border: 1px solid #e1e1e1;
+            background-color: #ffffff;
+            top: 45px;
+            right: 0;
+            min-width: 400px;
+            width: max-content;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 14px 35px 0 rgba(9, 9, 12, 0.4);
+            z-index: 2;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 200ms linear;
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown {
+            background-color: #fff;
+            box-shadow: 0 14px 35px 0 rgba(9, 9, 12, 0.15);
+        }
+
+        .dropdown:checked ~ .section-dropdown {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .section-dropdown:before {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            content: '';
+            display: block;
+            z-index: 1;
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown:after {
+            border-bottom: 8px solid #fff;
+        }
+
+        .section-dropdown a {
+            position: relative;
+            color: var(--text-color);
+            transition: all 200ms linear;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            border-radius: 2px;
+            padding: 5px 0;
+            padding-left: 20px;
+            padding-right: 15px;
+            margin: 2px 0;
+            text-align: left;
+            text-decoration: none;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            align-items: center;
+            justify-content: space-between;
+            -ms-flex-pack: distribute;
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown a {
+            color: var(--red-color);
+        }
+
+        .section-dropdown a:hover {
+            color: var(--red-color);
+            background-color: var(--backColor);
+            text-decoration: none;
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown a:hover {
+            color: var(--red-color);
+            background-color: var(--red-color);
+        }
+
+        .section-dropdown a .uil {
+            font-size: 14px;
+        }
+
+        .dropdown-sub:checked + label,
+        .dropdown-sub:not(:checked) + label {
+            position: relative;
+            color: var(--text-color);
+            transition: all 200ms linear;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            gap: 1.5rem;
+            font-size: 15px;
+            border-radius: 2px;
+            padding: 5px 0;
+            padding-left: 20px;
+            padding-right: 15px;
+            text-align: left;
+            text-decoration: none;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            align-items: center;
+            justify-content: space-between;
+            -ms-flex-pack: distribute;
+            cursor: pointer;
+        }
+
+        .dropdown-sub:checked + label .uil,
+        .dropdown-sub:not(:checked) + label .uil {
+            font-size: 14px;
+        }
+
+        .dropdown-sub:not(:checked) + label .uil {
+            transition: transform 200ms linear;
+        }
+
+        .dropdown-sub:checked + label .uil {
+            transform: rotate(135deg);
+            transition: transform 200ms linear;
+        }
+
+        .dropdown-sub:checked + label:hover,
+        .dropdown-sub:not(:checked) + label:hover {
+            color: var(--red-color);
+            background-color: var(--backColor);
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown .for-dropdown-sub {
+            color: var(--red-color);
+        }
+
+        .dark-light:checked ~ .sec-center .section-dropdown .for-dropdown-sub:hover {
+            color: var(--red-color);
+            background-color: var(--red-color);
+        }
+
+        .section-dropdown-sub {
+            position: relative;
+            display: block;
+            width: 100%;
+            pointer-events: none;
+            opacity: 0;
+            max-height: 0;
+            padding-left: 10px;
+            padding-right: 3px;
+            overflow: hidden;
+            transition: all 200ms linear;
+        }
+
+        .dropdown-sub:checked ~ .section-dropdown-sub {
+            pointer-events: auto;
+            opacity: 1;
+            max-height: 999px;
+        }
+
+        .section-dropdown-sub a {
+            font-size: 14px;
+        }
+
+        .section-dropdown-sub a .uil {
+            font-size: 14px;
+        }
+
+        .dark-light:checked ~ .logo img {
+            filter: brightness(10%);
+        }
+
+        @media  screen and(min-width: 1024px){
+            .header__language{
+                text-align: justify;
+            }
+        }
+
+        @media  screen and (max-width: 991px) {
+            .dark-light:checked + label,
+            .dark-light:not(:checked) + label {
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+        .dropdown:checked + .for-dropdown {
+            background-color: var(--backColor);
+        }
+
+        .dropdown-sub:checked + .for-dropdown-sub {
+            background-color: var(--backColor);
+        }
+
+        .section-dropdown-sub.active {
+            display: block;
+        }
+
+        .section-dropdown-sub a.active {
+            background-color: var(--backColor);
+        }
+
+        .for-dropdown-sub.active {
+            background-color: var(--backColor);
+        }
+
+        .section-dropdown-sub {
+            display: none;
+        }
+
+        .close {
+            position: absolute;
+            left: 2rem;
+            background: transparent;
+            border: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            display: block;
+            cursor: pointer;
+            color: black;
+            border-radius: 50%;
+            outline: none;
+        }
+
+        .search-box.search-elem {
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999999;
+            background: rgb(0 0 0 / 90%);
+            transition: all 0.3s ease-in-out;
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+        }
+
+        .search-box.search-elem .inner {
+            width: 70%;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .search-box.search-elem label {
+            color: white;
+            font-weight: 300;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        .search-box.search-elem button.submit {
+            outline: none;
+            border-radius: 0 20px 20px 0;
+            position: absolute;
+            top: 0;
+            right: 12px;
+            height: 72px;
+            padding: 10px 2rem;
+            background: var(--red-color);
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            font-size: 1rem;
+            color: white;
+            border: none;
+        }
+
+        .search-box.search-elem button {
+            background: var(--red-color);
+            color: #ffffff;
+            padding: 20px 25px;
+        }
+
+        .search-box.search-elem input[type="text"] {
+            padding: 20px;
+            height: 72px;
+            font-size: 32px;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            border: none;
+            width: 100%;
+            border-radius: 20px;
+            transition: border 0.3s;
+        }
+
+        .search-box.search-elem input[type="text"]:focus {
+            border-bottom: solid 2px #00a896;
+            box-shadow: none;
+        }
+
+        .search-box.search-elem label.placeholder {
+            position: absolute;
+            top: 10px;
+            left: 2rem;
+            font-size: 32px;
+            font-weight: 300;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            color: #999;
+            transition: all 0.3s;
+        }
+
+        .search-box.search-elem label.placeholder.move-up {
+            top: -25px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .search-box.search-elem.search-open {
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
+
+        .search-btn {
+            text-transform: uppercase;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+            font-size: 0.875rem;
+            padding: 0.75rem;
+            display: inline-block;
+            background: white;
+        }
+
+        .search-btn:hover {
+            text-decoration: none;
+        }
+
+        .small-12 button {
+            background: var(--red-color);
+
+        }
+
+        .scroll-disabled {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .img-full-screen,
+        .img-placeholder {
+            cursor: pointer;
+        }
+
+        .img-placeholder {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: none;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: #fff;
+            z-index: 999;
+        }
+
+        .footer-images {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .footer-images img {
+            width: calc(100% / 7);
+            height: 200px;
+        }
+
+        .footer-slogan {
+            margin: 10px;
+            padding: 10px;
+            border-bottom: 0.3px solid white;
+            border-right: 0.3px solid white;
+            color: white;
+        "
+        }
+
+        .footer-sloganb h4 {
+            font-weight: 200;
+            font-size: 20px;
+        }
+
+        @media  screen and (max-width: 1024px) {
+            #language {
+                width: 200px;
+                height: 200px;
+                border-radius: 30%;
+                background-color: white;
+                text-align: center;
+                line-height: 300px;
+                color: inherit !important;
+                padding: 8px;
+            }
+        }
+        @media  only screen and(max-width: 360px){
+            .small-menu__list > li > a{
+                padding: 0.1rem 0.1rem;
+                letter-spacing: 1px;
+                color: #494949;
+                font-size: 12px!important;
+            }
+        }
+        #menuToggle {
+            position: absolute;
+            left: 1rem;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 11px #0000004f;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #menuToggle label {
+            display: flex;
+            flex-direction: column;
+            width: 25px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        #menuToggle label span {
+            background: #343a40;
+            border-radius: 10px;
+            height: 3px;
+            margin: 2px 0;
+            transition: .4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+
+        #menuToggle span:nth-of-type(1) {
+            width: 50%;
+
+        }
+
+        #menuToggle span:nth-of-type(2) {
+            width: 100%;
+        }
+
+
+        #menuToggle span:nth-of-type(3) {
+            width: 75%;
+
+        }
+
+
+        #menuToggle.active span:nth-of-type(1) {
+            transform-origin: bottom;
+            transform: rotatez(45deg) translate(14px, 2px);
+        }
+
+
+        #menuToggle.active span:nth-of-type(2) {
+            transform-origin: top;
+            transform: translate(7px, 9px) rotatez(-45deg);
+        }
+
+
+        #menuToggle.active span:nth-of-type(3) {
+            transform-origin: bottom;
+            width: 50%;
+            transform: translate(17px, 5px) rotatez(45deg);
+        }
+
+        #mobil-menu {
+            position: absolute;
+            width: 100vw;
+            left: -100vw;
+            min-height: calc(100vh - 4.5rem);
+            height: max-content;
+            top: 4.5rem;
+            z-index: 999999999999999;
+            padding: 30px;
+            background: white;
+            list-style-type: none;
+            -webkit-font-smoothing: antialiased;
+            transform-origin: 0% 0%;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        }
+        #mobil-menu li a{
+            color: var(--text-color);
+        }
+
+        #mobil-menu.active {
+            transform: none;
+            left: 0;
+        }
+
+        #mobil-menu li {
+            padding: 10px 0;
+            font-size: 22px;
+        }
+
+        #mobil-menu li {
+            border-bottom: 1px solid #e6e6e6;
+            list-style: none;
+        }
+
+        #mobil-menu li ul {
+            display: none;
+        }
+
+        #mobil-menu li.active > ul {
+            display: block;
+        }
+
+        #mobil-menu .mobil-menu-list-head {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+        }
+        .stop-scrolling {
+            height: 100%;
+            overflow: hidden;
+        }
+
+
+    </style>
+</head>
+<body>
+<header class="header-fixed">
+    <div class="header-top firat-container ">
+        <a href="https://www.firat.edu.tr/">
+            <div class="logo">
+                <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/firat-logo-yeni.png" alt="">
+            </div>
+        </a>
+        <div class="header-title">
+            <h3>                     <div class="title">
+                        <h5><p>Bilgisayar Mühendisliği</p></h5>
+                    </div>
+                </h3>
+        </div>
+        <div class="header-right">
+            <a href="#" class="search-btn search"><i class="fa fa-search" aria-hidden="true"></i></a>
+            <div class="search-box search-elem">
+                <button class="close">x</button>
+                <div class="inner row">
+                    <form action="https://bilgisayarmf.firat.edu.tr/search">
+                        <div class="small-12 columns">
+                            <label class="placeholder" for="search-field">Arama Yap...</label>
+                            <input type="text" name="search" id="search-field">
+                            <button class="submit" type="submit">Ara</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="language">
+                <div class="js">
+                    <div class="language-picker js-language-picker" data-trigger-class="btn btn--subtle">
+                        <form action="" class="language-picker__form">
+                            <label for="language-picker-select">Select your language</label>
+                            <select name="language-picker-select" id="language-picker-select">
+                                <option lang="tr" value="tr"  selected >TR</option>
+                                <option lang="en" value="en" >EN</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="fast-access">
+                <div class="sec-center">
+                    <input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
+                    <label class="for-dropdown" for="dropdown">Hızlı Erişim                        <i class="fa fa-arrow-down" aria-hidden="true"></i></label>
+                    <div class="section-dropdown">
+                                                    <li>
+                                                                    <a class="sub-border   ">e-Hizmetler</a>
+                                                                                                    <style>
+    .fast-access-submenu li{
+        position: relative;
+    }
+    .ikon{
+        margin-left: 15rem !important;
+    }
+</style>
+<button style="padding: 7px 30px;    position: absolute;
+width: 100%;
+right: 0;
+    top: 0rem;
+    border: 0;
+    background: transparent;" class="open-menu-button first-open-button open-first sub-border"><i
+            class="ul-open-icon fas fa-plus ikon"></i></button>
+<ul class="fast-access-submenu" style="display: none">
+
+
+                            <li><a class="sub-border " href=" https://posta.firat.edu.tr/">Fırat e-Posta</a>
+
+                </li>
+
+                            <li><a class="sub-border " href=" https://obs.firat.edu.tr/">Öğrenci İşleri Otomasyonu</a>
+
+                </li>
+
+                            <li><a class="sub-border " href=" https://obs.firat.edu.tr/">Transkript Belgesi</a>
+
+                </li>
+            </ul>                                                            </li>
+                                                    <li>
+                                                                    <a target="_blank" class="sub-border "
+                                       href="http://www.firat.edu.tr/tr/page/event">Etkinlikler</a>
+                                                                                            </li>
+                                                    <li>
+                                                                    <a target="_blank" class="sub-border "
+                                       href="http://www.firat.edu.tr">Fırat Üniversitesi</a>
+                                                                                            </li>
+                                                    <li>
+                                                                    <a target="_blank" class="sub-border "
+                                       href="http://www.firat.edu.tr/documents/1607005914.pdf">Akademik Takvim</a>
+                                                                                            </li>
+                                                    <li>
+                                                                    <a target="_blank" class="sub-border "
+                                       href="https://unievi.firat.edu.tr/">Üniversite Evi</a>
+                                                                                            </li>
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="header__language">
+                <span class="language__tr"><a hreflang="tr" style="color:white"
+                                              href="https://bilgisayarmf.firat.edu.tr/tr"
+                                               id="language" >TR</a></span>
+        <span class="language__en"><a hreflang="en" style="color:white"
+                                      href="https://bilgisayarmf.firat.edu.tr/en"
+                                      >EN</a></span>
+    </div>
+    <div id="menuToggle">
+        <label for="check">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+    <nav role="navigation">
+        <ul id="mobil-menu">
+                            <li >
+                                            <a target="_blank"
+                           href="https://bilgisayarmf.firat.edu.tr/">
+                                Ana Sayfa
+                            </a>
+                                                        </li>
+                            <li >
+                                            <a href="">Hakkımızda</a>
+                                                                <div class="mobil-menu-list-head" style="position: relative;top:-22px;max-height: 5px">
+    <span class="mobil-menu-li"></span>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+</div>
+<ul>
+            <li>
+                            <a href="">Genel Bilgi</a>
+
+        </li>
+            <li>
+                            <a href="">Bölüm Başkanımız</a>
+
+        </li>
+            <li>
+                            <a href="">Bölüm Başkanı Yardımcıları</a>
+
+        </li>
+            <li>
+                            <a href="">Koordinatörler</a>
+
+        </li>
+            <li>
+                            <a href="">Komisyonlar</a>
+
+        </li>
+    </ul>
+                                    </li>
+                            <li >
+                                            <div class="mobil-menu-list-head">
+                            <span class="mobil-menu-li">Personel</span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </div>
+                        <ul>
+                                                                                                                         <li>
+                                    <a href="">Akademik</a>
+                                  </li>
+                                  <li>
+                                    <a href="">İdari</a>
+                                </li>
+                                                    </ul>
+                                                        </li>
+                            <li >
+                                            <a href="">Lisans</a>
+                                                                <div class="mobil-menu-list-head" style="position: relative;top:-22px;max-height: 5px">
+    <span class="mobil-menu-li"></span>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+</div>
+<ul>
+            <li>
+                            <a href="">Genel Bilgi</a>
+
+        </li>
+            <li>
+                            <a href="">Ders Listesi</a>
+
+        </li>
+            <li>
+                            <a href="">Ders İçerikleri</a>
+
+        </li>
+            <li>
+                            <a href="">Ders Programı</a>
+
+        </li>
+    </ul>
+                                    </li>
+                            <li >
+                                            <a href="">Lisansüstü</a>
+                                                                <div class="mobil-menu-list-head" style="position: relative;top:-22px;max-height: 5px">
+    <span class="mobil-menu-li"></span>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+</div>
+<ul>
+            <li>
+                            <a href="">Genel Bilgi</a>
+
+        </li>
+            <li>
+                            <a href="">Ders Listesi</a>
+
+        </li>
+            <li>
+                            <a href="">Ders İçerikleri</a>
+
+        </li>
+    </ul>
+                                    </li>
+                            <li >
+                                            <a href="">Araştırma</a>
+                                                                <div class="mobil-menu-list-head" style="position: relative;top:-22px;max-height: 5px">
+    <span class="mobil-menu-li"></span>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+</div>
+<ul>
+            <li>
+                            <a href="">Projeler</a>
+
+        </li>
+            <li>
+                            <a href="">Laboratuvarlar</a>
+
+        </li>
+            <li>
+                            <a href="">Yayınlar</a>
+
+        </li>
+    </ul>
+                                    </li>
+                            <li >
+                                                <a>Dokümanlar</a>
+                                                                <div class="mobil-menu-list-head" style="position: relative;top:-22px;max-height: 5px">
+    <span class="mobil-menu-li"></span>
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+</div>
+<ul>
+            <li>
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3226">Yönetmelikler/Yönergeler</a>
+
+        </li>
+            <li>
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3227">Dokümanlar</a>
+
+        </li>
+            <li>
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3243">Staj Dokümanları</a>
+
+        </li>
+    </ul>
+                                    </li>
+                            <li >
+                                            <a href="https://bilgisayarmf.firat.edu.tr/page/3244">İletişim</a>
+                                                        </li>
+
+                                                    <li>
+                    <a target="_blank"
+                       href="https://obs.firat.edu.tr/oibs/bologna/index.aspx?lang=tr&curOp=showPac&curUnit=1&curSunit=1260">Bologna</a>
+                </li>
+                    </ul>
+    </nav>
+    <div class="mobil-circle" onclick="qwert()">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </div>
+    <div class="small-menu circle-menu">
+        <div style=" background-color:#79113e; color: white" class="small-menu__header">Hızlı Erişim</div>
+        <ul class="small-menu__list">
+                            <li style="display: flex;" class="small-menu__item">
+                                            <a class="small-menu__link">e-Hizmetler</a>
+                                                                <style>
+    .sub-border{
+        color: var(--text-color);
+        font-size: 18px;
+        font-weight: 200;
+    }
+    .fast-access-submenu li{
+        position: relative;
+    }
+    .open-menu-button .ul-open-icon{
+        font-size: 12px;
+        margin-left: 6rem;
+    }
+</style>
+
+<div class="inner-list-head">
+    <i class="fa fa-solid fa-plus menu-plus" onclick=hizlierisim(this)></i>
+    <i class="fa fa-solid fa-minus menu-minus"></i>
+</div>
+<ul class="inner-list alk " style="margin-top: 3.5rem; margin-left: -8rem">
+
+            <li style="width: 110%" class="inner-list__item d-flex">
+                            <a class="inner-list__link " href=" https://posta.firat.edu.tr/">Fırat e-Posta</a>
+
+        </li>
+            <li style="width: 110%" class="inner-list__item d-flex">
+                            <a class="inner-list__link " href=" https://obs.firat.edu.tr/">Öğrenci İşleri Otomasyonu</a>
+
+        </li>
+            <li style="width: 110%" class="inner-list__item d-flex">
+                            <a class="inner-list__link " href=" https://obs.firat.edu.tr/">Transkript Belgesi</a>
+
+        </li>
+    </ul>                                    </li>
+                            <li style="display: flex;" class="small-menu__item">
+                                            <a target="_blank"
+                           href="http://www.firat.edu.tr/tr/page/event">Etkinlikler</a>
+                                                        </li>
+                            <li style="display: flex;" class="small-menu__item">
+                                            <a target="_blank"
+                           href="http://www.firat.edu.tr">Fırat Üniversitesi</a>
+                                                        </li>
+                            <li style="display: flex;" class="small-menu__item">
+                                            <a target="_blank"
+                           href="http://www.firat.edu.tr/documents/1607005914.pdf">Akademik Takvim</a>
+                                                        </li>
+                            <li style="display: flex;" class="small-menu__item">
+                                            <a target="_blank"
+                           href="https://unievi.firat.edu.tr/">Üniversite Evi</a>
+                                                        </li>
+                    </ul>
+    </div>
+    <div class="header-sub">
+        <nav class="menu firat-container">
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/">Ana Sayfa</a>
+                                                                                </li>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/page/3228">Hakkımızda</a>
+                                                                                        <ol class="sub-menu">
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3228">Genel Bilgi</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3229">Bölüm Başkanımız</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3230">Bölüm Başkanı Yardımcıları</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3231">Koordinatörler</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3232">Komisyonlar</a>
+
+                    </li>
+
+
+</ol>
+                                                    </li>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                            <a style="line-height: 25px;">Personel</a>
+                            <ol class="sub-menu">
+                                                                    <li class="sub-menu-item">
+                                        <a href="https://bilgisayarmf.firat.edu.tr/academic-staffs">Akademik</a>
+                                    </li>
+                                                                                                    <li class="sub-menu-item">
+                                        <a href="https://bilgisayarmf.firat.edu.tr/admin-staffs">İdari</a>
+                                    </li>
+                                                                                            </ol>
+                        </li>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/page/3233">Lisans</a>
+                                                                                        <ol class="sub-menu">
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3233">Genel Bilgi</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3234">Ders Listesi</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3235">Ders İçerikleri</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3236">Ders Programı</a>
+
+                    </li>
+
+
+</ol>
+                                                    </li>
+                                    </ol>
+                            <ol>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/page/3237">Lisansüstü</a>
+                                                                                        <ol class="sub-menu">
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3237">Genel Bilgi</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3238">Ders Listesi</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3239">Ders İçerikleri</a>
+
+                    </li>
+
+
+</ol>
+                                                    </li>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/page/3240">Araştırma</a>
+                                                                                        <ol class="sub-menu">
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3240">Projeler</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3241">Laboratuvarlar</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3242">Yayınlar</a>
+
+                    </li>
+
+
+</ol>
+                                                    </li>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a>Dokümanlar</a>
+                                                                                        <ol class="sub-menu">
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3226">Yönetmelikler/Yönergeler</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3227">Dokümanlar</a>
+
+                    </li>
+
+            <li class="sub-menu-item">
+                            <a href="https://bilgisayarmf.firat.edu.tr/page/3243">Staj Dokümanları</a>
+
+                    </li>
+
+
+</ol>
+                                                    </li>
+                                    </ol>
+                            <ol>
+                                            <li class="menu-item">
+                                                            <a style="line-height: 25px;"
+                                   href="https://bilgisayarmf.firat.edu.tr/page/3244">İletişim</a>
+                                                                                </li>
+                                    </ol>
+                        <ol>
+
+                                                                    <li class="menu-item">
+                        <a style="line-height: 25px;" target="_blank"
+                           href="https://obs.firat.edu.tr/oibs/bologna/index.aspx?lang=tr&curOp=showPac&curUnit=1&curSunit=1260">Bologna</a>
+                    </li>
+
+            </ol>
+            <span class="bar"></span>
+        </nav>
+
+    </div>
+</header>
+<header class="header-responsive">
+    <div class="header-title-responsive">
+        <h3>                 <div class="title">
+                    <h5><p>Bilgisayar Mühendisliği</p></h5>
+                </div>
+            </h3>
+    </div>
+</header>
+
+
+
+        <div class="home-shape5">
+        <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/home-shape2.svg" alt="">
+    </div>
+    <!--Ana sayfa giriş-->
+                        <div class="entrance firat-container">
+
+                <div class="row my-announcement">
+                    <div class=" z-index slider-card  col-lg-7 col-md-12 col-sm-12">
+                        <div class="entrance-right-shape"></div>
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                                                <div class="swiper-slide">
+                                    <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/home-new-img.jpeg" alt="">
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="entrance-left-shape"></div>
+                    </div>
+                                                                <div class="announcement-cards   col-lg-5 col-md-12 col-sm-12">
+                            <div class="announcement-right-shape"></div>
+
+                            <div class="announcement-cards-flex">
+                                <div>
+                                                                            <a class="announcement-card-link"
+                                           href="https://bilgisayarmf.firat.edu.tr/announcements-detail/40382">
+                                            <div class="announcement-card " style="margin-bottom: .5rem!important;">
+
+                                                <div class="announcement-text">
+                                                    <p>
+                                                                                                                    Tek ders sınavı hakkında
+                                                                                                            </p>
+                                                </div>
+                                                <div class="announcement-date">
+                                                    <p>
+                                                        >12 Şub 2024
+                                                        ,11:22
+                                                    </p>
+                                                </div>
+
+
+
+
+
+                                                <div class="announcement-left-shape"></div>
+                                            </div>
+                                        </a>
+                                                                            <a class="announcement-card-link"
+                                           href="https://bilgisayarmf.firat.edu.tr/announcements-detail/40232">
+                                            <div class="announcement-card " style="margin-bottom: .5rem!important;">
+
+                                                <div class="announcement-text">
+                                                    <p>
+                                                                                                                         2023-2024 Güz yarıyılı Mesleki Uygulama-I/Mesleki Uygulama-II ...                                                                                                            </p>
+                                                </div>
+                                                <div class="announcement-date">
+                                                    <p>
+                                                        > 1 Şub 2024
+                                                        ,11:38
+                                                    </p>
+                                                </div>
+
+
+
+
+
+                                                <div class="announcement-left-shape"></div>
+                                            </div>
+                                        </a>
+                                                                            <a class="announcement-card-link"
+                                           href="https://bilgisayarmf.firat.edu.tr/announcements-detail/40126">
+                                            <div class="announcement-card " style="margin-bottom: .5rem!important;">
+
+                                                <div class="announcement-text">
+                                                    <p>
+                                                                                                                    2023-2024 GÜZ YARIYILI BÜTÜNLEME SINAV PROGRAMI
+                                                                                                            </p>
+                                                </div>
+                                                <div class="announcement-date">
+                                                    <p>
+                                                        >24 Oca 2024
+                                                        ,15:46
+                                                    </p>
+                                                </div>
+
+
+
+
+
+                                                <div class="announcement-left-shape"></div>
+                                            </div>
+                                        </a>
+                                                                            <a class="announcement-card-link"
+                                           href="https://bilgisayarmf.firat.edu.tr/announcements-detail/39924">
+                                            <div class="announcement-card " style="margin-bottom: .5rem!important;">
+
+                                                <div class="announcement-text">
+                                                    <p>
+                                                                                                                    Staj Başvuru İmkanı
+                                                                                                            </p>
+                                                </div>
+                                                <div class="announcement-date">
+                                                    <p>
+                                                        >16 Oca 2024
+                                                        ,09:41
+                                                    </p>
+                                                </div>
+
+
+
+
+
+                                                <div class="announcement-left-shape"></div>
+                                            </div>
+                                        </a>
+                                                                            <a class="announcement-card-link"
+                                           href="https://bilgisayarmf.firat.edu.tr/announcements-detail/39691">
+                                            <div class="announcement-card " style="margin-bottom: .5rem!important;">
+
+                                                <div class="announcement-text">
+                                                    <p>
+                                                                                                                         2023-2024 Güz yarıyılı Mesleki Uygulama-I/Mesleki Uygulama-II ...                                                                                                            </p>
+                                                </div>
+                                                <div class="announcement-date">
+                                                    <p>
+                                                        > 3 Oca 2024
+                                                        ,15:37
+                                                    </p>
+                                                </div>
+
+
+
+
+
+                                                <div class="announcement-left-shape"></div>
+                                            </div>
+                                        </a>
+                                                                    </div>
+                                <div>
+                                    <a href="https://bilgisayarmf.firat.edu.tr/announcements-all">
+                                        <div class="announcement-card show-all-button-announcement-card"
+                                             style="padding: 1.6rem">
+                                            <p>Tüm duyuruları görmek için tıklayınız...</p>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                </div>
+            </div>
+
+                <div class="home-shape6">
+            <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/home-shape2.svg" alt="">
+        </div>
+        <!--Ana sayfa son-->
+                <!---Metric başlangıç-->
+                <!---Metric son-->
+
+
+
+
+        <!-----Page Index Sayfası Başlangıç------>
+
+
+        <!-----Page Index Sayfası Son------>
+
+        <!---Dokümanlar Başlangıç--->
+        <div class="documents mt-5 mb-5">
+            <div class="document-cards firat-container">
+                <div class="home-shape3">
+                    <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/home-shape2.svg" alt="">
+                </div>
+                                    <div class="document-card">
+                        <div class="document-card-top">
+                            <a href="https://bilgisayarmf.firat.edu.tr/internship-document">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="document-card-sub">
+                            <p>Staj Dökümanları</p>
+                        </div>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-card-top">
+                            <a href="https://bilgisayarmf.firat.edu.tr/syllabus">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="document-card-sub">
+                            <p>Ders Programı</p>
+                        </div>
+                    </div>
+                                <div class="document-card">
+                    <div class="document-card-top">
+                        <a href="https://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406" target="_blank">
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="document-card-sub">
+                        <p>Takvim</p>
+                    </div>
+                </div>
+                <div class="document-card">
+                    <div class="document-card-top">
+                        <a href="https://obs.firat.edu.tr/" target="_blank">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="document-card-sub">
+                        <p>OBS</p>
+                    </div>
+                </div>
+                <div class="document-card">
+                    <div class="document-card-top">
+                        <a href="https://debsis.firat.edu.tr/" target="_blank">
+                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="document-card-sub">
+                        <p>Uzaktan Eğitim</p>
+                    </div>
+                </div>
+                <div class="document-card">
+                    <div class="document-card-top">
+                        <a href="http://mail.firat.edu.tr/" target="_blank">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="document-card-sub">
+                        <p>E-posta</p>
+                    </div>
+                </div>
+                <div class="home-shape4">
+                    <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/home-shape2.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <!---Dokümanlar Son--->
+
+
+<!---->
+
+
+  <div class="chat-icon-container" id="chat-icon-container">
+        <div class="chat-icon" id="chat-icon">
+            <img src="https://jasig.firat.edu.tr/cas/images/logo.png" alt="Icon"> <!-- Yuvarlak icon için -->
+        </div>
+    </div>
+
+    <div class="qa-container" id="qa-container">
+        <span class="close-icon" onclick="closeContainer()">&#10006;</span> <!-- Kapatma iconu -->
+        <div class="chat-box" id="chat-box">
+            <div class="message" style="color: #7D0552">Fırat Asistan'a Hoşgeldiniz. Size Nasıl Yardımcı Olabilirim?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="question" name="question" placeholder="Ne Öğrenmek İstersiniz...">
+            <button type="button" onclick="sendMessage()">Gönder</button>
+        </div>
+
+    </div>
+
+
+<!---->
+
+
+
+
+
+        <!--Üniversiteden Haberler son-->
+    <footer>
+    <div class="map">
+        <div class="map-inner">
+                            <iframe id="location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3114.9595103777483!2d39.18684501520206!3d38.672798579605995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4076c03ed3e33d0d%3A0xd1d31031c6bd5182!2sFirat%20%C3%9Cniversitesi%20bilgisayar%20m%C3%BChendisli%C4%9Fi%20fak%C3%BCltesi!5e0!3m2!1str!2str!4v1649158101467!5m2!1str!2str" width="100%" height="300" style="border:0;"
+                        allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+    </div>
+    <div class="footer-top ">
+        <div class="firat-container">
+            <div>
+                <div class="footer-top-icon ">
+                    <div>
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </div>
+                    <p>                             @firat.edu.tr
+                        </p>
+                </div>
+                <div class="footer-top-icon">
+                    <div>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <p>90 (424) 237 00 00</p>
+                </div>
+            </div>
+            <div class="number-visitors">
+                <p>Ziyaretçi Sayısı: <span> 663928</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-sub" style="background-image: url("https://bilgisayarmf.firat.edu.tr/assets/front/img/announcement-img.jpg")">
+    <div class="firat-container" style="gap: 1rem">
+        <div class="firat-logo">
+            <img src="https://bilgisayarmf.firat.edu.tr/assets/front/img/firat-logo-yeni.png" alt="">
+        </div>
+
+
+            </div>
+                <div class="footer-adreses">
+            <div class="address">
+                <p>Fırat Üniversitesi</p>
+                <p>23119 Merkez/Elazığ</p>
+            </div>
+        </div>
+    </div>
+    <div class="cizgi">
+        <div class="line firat-container"></div>
+    </div>
+
+    <div class="copyright firat-container">
+        <center style="font-size: 10px; color: white; margin-top: 5px">
+            © 2023 <a style="color: white" href="http://ddyo.firat.edu.tr/">Fırat Üniversitesi Dijital Dönüşüm ve Yazılım Ofisi</a>
+        </center>
+        <div class="footer-social-icon">
+
+        </div>
+
+    </div>
+    </div>
+</footer>
+
+
+<!---->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         $(document).ready(function() {
+            $(".chat-icon").click(function() {
+                $(".qa-container").toggle(300); // Açılış ve kapanış animasyonu ekleyelim
+                $(this).toggleClass("active");
+            });
+        });
+
+        function sendMessage() {
+            var question = $("#question").val();
+            var chatBox = $("#chat-box");
+
+            // Kullanıcının sorduğu soruyu gönder
+            var userMessage = $("<div></div>").addClass("message").text("You: " + question);
+            chatBox.append(userMessage);
+
+            // Soruyu sunucuya göndermek ve cevap almak için AJAX isteği gönder
+            $.ajax({
+                type: "POST",
+                url: "/soru", // Buradaki URL'yi "/soru" olarak güncelledik
+                contentType: "application/json",
+                data: JSON.stringify({"soru": question}), // JSON verisi olarak "soru" anahtarını gönderiyoruz
+                success: function(response) {
+                var botMessage = $("<div></div>").addClass("message bot-message").text("Asistan: "); // Buradaki "bot-message" sınıfı eklenmiştir
+                chatBox.append(botMessage);
+                // Cevabı yavaşça yaz
+                typeWriter(response.answer, botMessage);
+            }
+            });
+
+            // Giriş kutusunu temizle
+            $("#question").val("");
+        }
+
+        document.getElementById("question").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") { // Enter tuşuna basıldığında
+        sendMessage(); // Mesajı gönder
+    }
+});
+
+        function closeContainer() {
+            $(".qa-container").hide(300); // Açılış ve kapanış animasyonu ekleyelim
+            $("#chat-icon").toggleClass("active");
+        }
+
+        function typeWriter(text, targetElement) {
+            var speed = 50; // Yazma hızı (milisaniye cinsinden)
+            var i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    targetElement.append(text.charAt(i));
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+    </script>
+<!---->
+
+
+
+<script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+<script>
+    // HTML elementlerini seçin
+    var menuToggle = document.getElementById("menu-toggle");
+    var mobileMenu = document.getElementById("mobile-menu");
+
+    // Menü durumu için bir değişken tanımlayın
+    var isMenuOpen = false;
+
+    // Menüyü açma/kapatma işlevini tanımlayın
+    function toggleMenu() {
+        if (isMenuOpen) {
+            // Menüyü gizle
+            mobileMenu.style.display = "none";
+            isMenuOpen = false;
+        } else {
+            // Menüyü göster
+            mobileMenu.style.display = "block";
+            isMenuOpen = true;
+        }
+    }
+
+    // Menüyü açma/kapatma işlevini tetiklemek için düğmeye tıklama olayını dinleyin
+    menuToggle?.addEventListener("click", toggleMenu);
+
+</script>
+
+<script>
+    $("#menuToggle").click(function () {
+        $("#menuToggle").toggleClass("active")
+        $("#mobil-menu").toggleClass("active")
+    })
+    $(".mobil-menu-list-head").click(function (event) {
+        $(event.currentTarget).next("ul").toggleClass("active")
+    })
+</script>
+
+<style>
+    .ikon2 {
+        margin-left: -50px;
+    }
+
+    .altikon {
+        margin-left: -19rem !important;
+    }
+</style>
+<script>
+
+
+
+    function hizlierisim(sub) {
+        var ulElement = sub.parentElement.nextElementSibling;
+
+
+        // açılan menünün kspnması için
+        if (ulElement.classList.contains("active")) {
+            ulElement.classList.remove("active");
+            ulElement.classList.add("inner-list");
+
+        } else { // açılması için
+            ulElement.classList.remove("inner-list");
+            ulElement.classList.add("active");
+
+            ulElement.querySelectorAll(".menu-plus").forEach(function(element) {
+                element.classList.add("ikon2");
+            });
+
+            let i = 1;
+            ulElement.querySelectorAll(".alk").forEach(function(element) {
+                element.classList.add("altikon");
+            });
+
+
+
+        }
+    }
+
+
+
+    $('.open-menu-button').click(function () {
+        console.log(5)
+
+
+        if ($(this).next(".fast-access-submenu").css('display') == 'none') {
+
+            $(".ul-open-icon").each(function () {
+                $(this).removeClass("fa-minus").addClass("fa-plus");
+            });
+            $(this).children().first().removeClass("fa-plus").addClass("fa-minus");
+            $(this).parents().each(function () {
+                if ($(this).hasClass("fast-access-submenu")) {
+                    $(this).slideDown(300);
+                }
+                if ($(this).children().eq(1).children().first().hasClass("ul-open-icon")) {
+                    $(this).children().eq(1).children().first().removeClass("fa-plus").addClass("fa-minus");
+                }
+            });
+            $(this).next(".fast-access-submenu").slideDown(300);
+        } else {
+            $(this).next(".fast-access-submenu").slideUp(300);
+            $(this).children().first().removeClass("fa-minus").addClass("fa-plus");
+            $(this).parents().each(function () {
+                if ($(this).hasClass("fa-minus")) {
+                    $(this).removeClass("fa-minus").addClass("fa-plus");
+                }
+
+            });
+
+        }
+    });
+</script>
+<script>
+    // Makes the clicked image full screen (uses a <div> with a background image)
+    $('.img-full-screen').click(function () {
+
+        // Prevents scrolling
+        $('body').addClass('scroll-disabled');
+
+        // Optional: Enables pinch and zoom
+        $('meta[name=viewport]').attr('content', 'width = device-width, initial-scale = 1.00, minimum-scale = 1.00, maximum-scale = 2.00, user-scalable=yes');
+
+        // Get image path source
+        var imagePath = $(this).attr('src');
+
+        // Set image path source
+        $('.img-placeholder').attr('style', 'background-image: url(' + imagePath + ')');
+
+        // Show image
+        $('.img-placeholder').fadeIn();
+
+    });
+
+    $('.img-placeholder').click(function () {
+
+        // Enables scrolling again
+        $('body').removeClass('scroll-disabled');
+
+        // Optional: Disables pinch and zoom
+        $('meta[name=viewport]').attr('content', 'width = device-width, initial-scale = 1.00, minimum-scale = 1.00, maximum-scale = 1.00');
+
+        // Hide image
+        $('.img-placeholder').fadeOut();
+    });
+</script>
+<script>
+    (function ($) {
+
+        $.fn.searchBox = function (ev) {
+            var $searchEl = $('.search-elem');
+            var $placeHolder = $('.placeholder');
+            var $sField = $('#search-field');
+            var moveText = function () {
+                $placeHolder.addClass('move-up').html('Aranıyor...');
+            }
+
+            $sField.keydown(moveText);
+            $sField.keydown(moveText);
+            $placeHolder.on('click', moveText);
+
+            if (ev === "open") {
+                $searchEl.addClass('search-open')
+                $sField.focus();
+            }
+            ;
+
+            if (ev === 'close') {
+                $searchEl.removeClass('search-open'),
+                    $placeHolder.removeClass('move-up').html('Type something...'),
+                    $sField.val('');
+            }
+            ;
+
+            $('.submit').prop('disabled', true);
+            $('#search-field').keyup(function () {
+                if ($(this).val() != '') {
+                    $('.submit').prop('disabled', false);
+                }
+            });
+        }
+
+    }(jQuery));
+
+    $('.search-btn').on('click', function (e) {
+        $(this).searchBox('open');
+        e.preventDefault();
+    });
+
+    $('.close').on('click', function () {
+        $(this).searchBox('close');
+    });
+</script>
+<script>
+    function Util() {
+    };
+    Util.hasClass = function (el, className) {
+        if (el.classList) return el.classList.contains(className);
+        else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+    };
+    Util.addClass = function (el, className) {
+        var classList = className.split(' ');
+        if (el.classList) el.classList.add(classList[0]);
+        else if (!Util.hasClass(el, classList[0])) el.className += " " + classList[0];
+        if (classList.length > 1) Util.addClass(el, classList.slice(1).join(' '));
+    };
+    Util.removeClass = function (el, className) {
+        var classList = className.split(' ');
+        if (el.classList) el.classList.remove(classList[0]);
+        else if (Util.hasClass(el, classList[0])) {
+            var reg = new RegExp('(\\s|^)' + classList[0] + '(\\s|$)');
+            el.className = el.className.replace(reg, ' ');
+        }
+        if (classList.length > 1) Util.removeClass(el, classList.slice(1).join(' '));
+    };
+    Util.toggleClass = function (el, className, bool) {
+        if (bool) Util.addClass(el, className);
+        else Util.removeClass(el, className);
+    };
+    Util.setAttributes = function (el, attrs) {
+        for (var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
+    };
+    Util.getChildrenByClassName = function (el, className) {
+        var children = el.children,
+            childrenByClass = [];
+        for (var i = 0; i < el.children.length; i++) {
+            if (Util.hasClass(el.children[i], className)) childrenByClass.push(el.children[i]);
+        }
+        return childrenByClass;
+    };
+    Util.is = function (elem, selector) {
+        if (selector.nodeType) {
+            return elem === selector;
+        }
+        var qa = (typeof (selector) === 'string' ? document.querySelectorAll(selector) : selector),
+            length = qa.length,
+            returnArr = [];
+        while (length--) {
+            if (qa[length] === elem) {
+                return true;
+            }
+        }
+        return false;
+    };
+    Util.setHeight = function (start, to, element, duration, cb) {
+        var change = to - start,
+            currentTime = null;
+        var animateHeight = function (timestamp) {
+            if (!currentTime) currentTime = timestamp;
+            var progress = timestamp - currentTime;
+            var val = parseInt((progress / duration) * change + start);
+            element.style.height = val + "px";
+            if (progress < duration) {
+                window.requestAnimationFrame(animateHeight);
+            } else {
+                cb();
+            }
+        };
+        element.style.height = start + "px";
+        window.requestAnimationFrame(animateHeight);
+    };
+    Util.scrollTo = function (final, duration, cb) {
+        var start = window.scrollY || document.documentElement.scrollTop,
+            currentTime = null;
+        var animateScroll = function (timestamp) {
+            if (!currentTime) currentTime = timestamp;
+            var progress = timestamp - currentTime;
+            if (progress > duration) progress = duration;
+            var val = Math.easeInOutQuad(progress, start, final - start, duration);
+            window.scrollTo(0, val);
+            if (progress < duration) {
+                window.requestAnimationFrame(animateScroll);
+            } else {
+                cb && cb();
+            }
+        };
+        window.requestAnimationFrame(animateScroll);
+    };
+    Util.moveFocus = function (element) {
+        if (!element) element = document.getElementsByTagName("body")[0];
+        element.focus();
+        if (document.activeElement !== element) {
+            element.setAttribute('tabindex', '-1');
+            element.focus();
+        }
+    };
+    Util.getIndexInArray = function (array, el) {
+        return Array.prototype.indexOf.call(array, el);
+    };
+    Util.cssSupports = function (property, value) {
+        if ('CSS' in window) {
+            return CSS.supports(property, value);
+        } else {
+            var jsProperty = property.replace(/-([a-z])/g, function (g) {
+                return g[1].toUpperCase();
+            });
+            return jsProperty in document.body.style;
+        }
+    };
+    Util.extend = function () {
+        var extended = {};
+        var deep = false;
+        var i = 0;
+        var length = arguments.length;
+        if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
+            deep = arguments[0];
+            i++;
+        }
+        var merge = function (obj) {
+            for (var prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+                        extended[prop] = extend(true, extended[prop], obj[prop]);
+                    } else {
+                        extended[prop] = obj[prop];
+                    }
+                }
+            }
+        };
+        for (; i < length; i++) {
+            var obj = arguments[i];
+            merge(obj);
+        }
+        return extended;
+    };
+    if (!Element.prototype.matches) {
+        Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+    }
+
+    function changeLanguage(event) {
+        console.log(event)
+        if (event.target.innerText === "TR") {
+            window.location.href = "https://bilgisayarmf.firat.edu.tr/tr";
+        }
+        if (event.target.innerText === "EN") {
+            window.location.href = "https://bilgisayarmf.firat.edu.tr/en";
+        }
+    }
+
+    if (!Element.prototype.closest) {
+        Element.prototype.closest = function (s) {
+            var el = this;
+            if (!document.documentElement.contains(el)) return null;
+            do {
+                if (el.matches(s)) return el;
+                el = el.parentElement || el.parentNode;
+            } while (el !== null && el.nodeType === 1);
+            return null;
+        };
+    }
+    if (typeof window.CustomEvent !== "function") {
+        function CustomEvent(event, params) {
+            params = params || {
+                bubbles: false,
+                cancelable: false,
+                detail: undefined
+            };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        }
+
+        CustomEvent.prototype = window.Event.prototype;
+        window.CustomEvent = CustomEvent;
+    }
+    Math.easeInOutQuad = function (t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    };
+    /**/
+    (function () {
+        var LanguagePicker = function (element) {
+            this.element = element;
+            this.select = this.element.getElementsByTagName('select')[0];
+            this.options = this.select.getElementsByTagName('option');
+            this.selectedOption = getSelectedOptionText(this);
+            this.pickerId = this.select.getAttribute('id');
+            this.trigger = false;
+            this.dropdown = false;
+            this.firstLanguage = false;
+            // dropdown arrow inside the button element
+            this.svgPath = '<svg viewBox="0 0 16 16"><polygon points="3,5 8,11 13,5 "></polygon></svg>';
+            initLanguagePicker(this);
+            initLanguagePickerEvents(this);
+        };
+
+        function initLanguagePicker(picker) {
+            // create the HTML for the custom dropdown element
+            picker.element.insertAdjacentHTML('beforeend', initButtonPicker(picker) + initListPicker(picker));
+
+            // save picker elements
+            picker.dropdown = picker.element.getElementsByClassName('language-picker__dropdown')[0];
+            picker.firstLanguage = picker.dropdown.getElementsByClassName('language-picker__item')[0];
+            picker.trigger = picker.element.getElementsByClassName('language-picker__button')[0];
+        };
+
+        function initLanguagePickerEvents(picker) {
+// make sure to add the icon class to the arrow dropdown inside the button element
+            Util.addClass(picker.trigger.getElementsByTagName('svg')[0], 'icon');
+            // language selection in dropdown
+            // ⚠️ Important: you need to modify this function in production
+            initLanguageSelection(picker);
+
+            // click events
+            picker.trigger.addEventListener('click', function () {
+                toggleLanguagePicker(picker, false);
+            });
+        };
+
+        function toggleLanguagePicker(picker, bool) {
+            var ariaExpanded;
+            if (bool) {
+                ariaExpanded = bool;
+            } else {
+                ariaExpanded = picker.trigger.getAttribute('aria-expanded') == 'true' ? 'false' : 'true';
+            }
+            picker.trigger.setAttribute('aria-expanded', ariaExpanded);
+            if (ariaExpanded == 'true') {
+                picker.firstLanguage.focus(); // fallback if transition is not supported
+                picker.dropdown.addEventListener('transitionend', function cb() {
+                    picker.firstLanguage.focus();
+                    picker.dropdown.removeEventListener('transitionend', cb);
+                });
+            }
+        };
+        let oldLang = ""
+
+        function checkLanguagePickerClick(picker, target) { // if user clicks outside the language picker -> close it
+            if (!picker.element.contains(target)) toggleLanguagePicker(picker, 'false');
+        };
+
+        function moveFocusToPickerTrigger(picker) {
+            if (picker.trigger.getAttribute('aria-expanded') == 'false') return;
+            if (document.activeElement.closest('.language-picker__dropdown') == picker.dropdown) picker.trigger.focus();
+        };
+
+        function initButtonPicker(picker) { // create the button element -> picker trigger
+            // check if we need to add custom classes to the button trigger
+            var customClasses = picker.element.getAttribute('data-trigger-class') ? ' ' + picker.element.getAttribute('data-trigger-class') : '';
+
+            var button = '<button class="language-picker__button' + customClasses + '" aria-label="' + picker.select.value + ' ' + picker.element.getElementsByTagName('label')[0].innerText + '" aria-expanded="false" aria-contols="' + picker.pickerId + '-dropdown">';
+            button = button + '<span aria-hidden="true" class="language-picker__label language-picker__flag language-picker__flag--' + picker.select.value + '"><em>' + picker.selectedOption + '</em>';
+            button = button + picker.svgPath + '</span>';
+            return button + '</button>';
+        };
+
+        function initListPicker(picker) { // create language picker dropdown
+            var list = '<div class="language-picker__dropdown" aria-describedby="' + picker.pickerId + '-description" id="' + picker.pickerId + '-dropdown">';
+            list = list + '<p class="sr-only" id="' + picker.pickerId + '-description">' + picker.element.getElementsByTagName('label')[0].innerText + '</p>';
+            list = list + '<ul class="language-picker__list" role="listbox">';
+            for (var i = 0; i < picker.options.length; i++) {
+                var selected = picker.options[i].hasAttribute('selected') ? ' aria-selected="true"' : '',
+                    language = picker.options[i].getAttribute('lang');
+                let li = '<li><a lang="' + language + '" data-value="' + picker.options[i].value + '" onclick="changeLanguage(event)" class="language-picker__item language-picker__flag language-picker__flag--' + picker.options[i].value + '"><span>' + picker.options[i].text + '</span></a></li>'
+                list = list + li;
+            }
+            return list;
+        };
+
+        function getSelectedOptionText(picker) { // used to initialize the label of the picker trigger button
+            var label = '';
+            if ('selectedIndex' in picker.select) {
+                label = picker.options[picker.select.selectedIndex].text;
+            } else {
+                label = picker.select.querySelector('option[selected]').text;
+            }
+            return label;
+        };
+
+        function getLanguageUrl(option) {
+            // ⚠️ Important: You should replace this return value with the real link to your website in the selected language
+            // option.value gives you the value of the language that you can use to create your real url (e.g, 'english' or 'italiano')
+            return '#';
+        };
+
+        function initLanguageSelection(picker) {
+            picker.element.getElementsByClassName('language-picker__list')[0].addEventListener('click', function (event) {
+                var language = event.target.closest('.language-picker__item');
+                if (!language) return;
+
+                if (language.hasAttribute('aria-selected') && language.getAttribute('aria-selected') == 'true') {
+                    // selecting the same language
+                    event.preventDefault();
+                    picker.trigger.setAttribute('aria-expanded', 'false'); // hide dropdown
+                } else {
+                    // ⚠️ Important: this 'else' code needs to be removed in production.
+                    // The user has to be redirected to the new url -> nothing to do here
+                    event.preventDefault();
+                    picker.element.getElementsByClassName('language-picker__list')[0].querySelector('[aria-selected="true"]').removeAttribute('aria-selected');
+                    language.setAttribute('aria-selected', 'true');
+                    picker.trigger.getElementsByClassName('language-picker__label')[0].setAttribute('class', 'language-picker__label language-picker__flag language-picker__flag--' + language.getAttribute('data-value'));
+                    picker.trigger.getElementsByClassName('language-picker__label')[0].getElementsByTagName('em')[0].innerText = language.innerText;
+                    picker.trigger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        };
+
+        //initialize the LanguagePicker objects
+        var languagePicker = document.getElementsByClassName('js-language-picker');
+        if (languagePicker.length > 0) {
+            var pickerArray = [];
+            for (var i = 0; i < languagePicker.length; i++) {
+                (function (i) {
+                    pickerArray.push(new LanguagePicker(languagePicker[i]));
+                })(i);
+            }
+
+            // listen for key events
+            window.addEventListener('keyup', function (event) {
+                if (event.keyCode && event.keyCode == 27 || event.key && event.key.toLowerCase() == 'escape') {
+                    // close language picker on 'Esc'
+                    pickerArray.forEach(function (element) {
+                        moveFocusToPickerTrigger(element); // if focus is within dropdown, move it to dropdown trigger
+                        toggleLanguagePicker(element, 'false'); // close dropdown
+                    });
+                }
+            });
+            // close language picker when clicking outside it
+            window.addEventListener('click', function (event) {
+                pickerArray.forEach(function (element) {
+                    checkLanguagePickerClick(element, event.target);
+                });
+            });
+        }
+    }());
+
+    document.body.style.overflowX = "hidden";
+</script>
+<script src="https://bilgisayarmf.firat.edu.tr/assets/front/js/responsive.js"></script>
+</body>
+</html>
